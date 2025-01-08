@@ -18,3 +18,13 @@ Today I learned how to use Jekyll collections to organize content. Collections i
 ## Why It's Useful
 
 Collections provide a more structured way to organize content compared to regular posts, especially when the content doesn't fit into the typical blog post format.
+
+```go
+package main
+
+import "fmt"
+
+func main() {
+    fmt.Println("Hello, World!")
+}
+```

@@ -11,7 +11,7 @@ title: Tags
     <div class="tags-list">
         {% for tag in tags %}
             {% if tag != "" %}
-            <a href="#{{ tag | slugify }}" class="tag">{{ tag }}</a>
+            <a href="#{{ tag | slugify }}" class="tag" onclick="scrollToTag('{{ tag | slugify }}')">#{{ tag }}</a>
             {% endif %}
         {% endfor %}
     </div>
@@ -21,16 +21,38 @@ title: Tags
         <section id="{{ tag | slugify }}">
             <h2>{{ tag }}</h2>
             <ul>
-            {% for post in site.til %}
-                {% if post.tags contains tag %}
+            {% assign tag_posts = site.til | where_exp: "post", "post.tags contains tag" | sort: "date" | reverse %}
+            {% for post in tag_posts %}
                 <li>
                     <a href="{{ post.url | relative_url }}">{{ post.title }}</a>
                     <span class="post-date">({{ post.date | date: "%B %-d, %Y" }})</span>
                 </li>
-                {% endif %}
             {% endfor %}
             </ul>
         </section>
         {% endif %}
     {% endfor %}
 </div>
+
+<script>
+    function scrollToTag(tagId) {
+        event.preventDefault();
+        const element = document.getElementById(tagId);
+        if (element) {
+            element.scrollIntoView({ behavior: 'smooth' });
+            // Update URL without page jump
+            history.pushState(null, null, '#' + tagId);
+        }
+    }
+
+    // Handle direct navigation to tag from URL
+    document.addEventListener('DOMContentLoaded', function() {
+        if (window.location.hash) {
+            const tagId = window.location.hash.substring(1);
+            const element = document.getElementById(tagId);
+            if (element) {
+                element.scrollIntoView({ behavior: 'smooth' });
+            }
+        }
+    });
+</script>

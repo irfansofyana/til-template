@@ -10,7 +10,7 @@ layout: default
     {% for category in categories %}
     <h2>{{ category }}</h2>
         
-    {% assign category_posts = site.til | where: "category", category | sort: "title" %}
+    {% assign category_posts = site.til | where: "category", category | sort: "date" | reverse %}
     {% for post in category_posts %}
     <article class="post">
         <h3><a href="{{ post.url | relative_url }}">{{ post.title }}</a></h3>
@@ -22,7 +22,7 @@ layout: default
             {% if post.tags.size > 0 %}
              • 
             {% for tag in post.tags %}
-            <span class="tag">#{{ tag }}</span>
+            <a href="/tags#{{ tag | slugify }}" class="tag">#{{ tag }}</a>
             {% endfor %}
             {% endif %}
         </div>
@@ -33,7 +33,7 @@ layout: default
     {% if uncategorized_posts.size > 0 %}
     <h2>Uncategorized</h2>
         
-    {% assign sorted_posts = uncategorized_posts | sort: "title" %}
+    {% assign sorted_posts = uncategorized_posts | sort: "date" | reverse %}
     {% for post in sorted_posts %}
     <article class="post">
         <h3><a href="{{ post.url | relative_url }}">{{ post.title }}</a></h3>
@@ -45,7 +45,7 @@ layout: default
             {% if post.tags.size > 0 %}
              • 
             {% for tag in post.tags %}
-            <span class="tag">#{{ tag }}</span>
+            <a href="/tags#{{ tag | slugify }}" class="tag">#{{ tag }}</a>
             {% endfor %}
             {% endif %}
         </div>
