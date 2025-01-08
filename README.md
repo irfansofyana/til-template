@@ -1,5 +1,7 @@
 # Today I Learned Template
 
+![CI](https://github.com/irfansofyana/til-template/actions/workflows/ci.yml/badge.svg)
+
 A GitHub Pages template for creating your own Today I Learned (TIL) website. Document and share your daily learnings in an organized and searchable way. This project is inspired by <https://til.simonwillison.net/> and some others that I found.
 
 ## Features
@@ -201,6 +203,24 @@ The site will automatically rebuild when you make changes to any source files.
   ```bash
   docker-compose logs
   ```
+
+## CI/CD
+
+This project includes automated CI/CD through GitHub Actions:
+
+1. **Continuous Integration**:
+   - Automatically builds the Jekyll site on every push and pull request
+   - Verifies all pages and links are working (no 404s)
+   - Runs comprehensive link checking
+
+2. **Status Checks**:
+   - Build status is displayed via the CI badge at the top of this README
+   - Failed builds prevent merging to protect against broken deployments
+
+To use the CI:
+1. No setup required - it works automatically after pushing to GitHub
+2. Update the badge URL in this README by replacing `[username]` with your GitHub username
+3. View detailed build logs in your repository's Actions tab
 
 ## License
 
