@@ -7,6 +7,9 @@ url: "" # Change this to your site URL
 
 # Build settings
 markdown: kramdown
+highlighter: rouge
+kramdown:
+  syntax_highlighter: rouge
 plugins:
   - jekyll-feed
   - jekyll-seo-tag
