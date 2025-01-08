@@ -1,0 +1,70 @@
+---
+layout: default
+---
+
+<div class="til-content">
+    <div class="til-header">
+        <h1>Today I Learned</h1>
+        <p class="subtitle">Knowledge organized by topics</p>
+    </div>
+    
+    {% assign posts_with_categories = site.til | where_exp: "post", "post.category != nil" %}
+    {% assign categories = posts_with_categories | map: "category" | uniq | sort %}
+    {% assign uncategorized_posts = site.til | where_exp: "post", "post.category == nil" %}
+    
+    {% for category in categories %}
+    <section class="category-section">
+        <h2 class="category-heading">{{ category }}</h2>
+        
+        {% assign category_posts = site.til | where: "category", category | sort: "title" %}
+        {% for post in category_posts %}
+        <article class="til-entry">
+            <h3 class="til-title">
+                <a href="{{ post.url | relative_url }}">{{ post.title }}</a>
+            </h3>
+            <div class="til-meta">
+                <span class="til-tags">
+                    {% for tag in post.tags %}
+                    <span class="tag">{{ tag }}</span>
+                    {% endfor %}
+                </span>
+                <time datetime="{{ post.date | date_to_xmlschema }}">
+                    {{ post.date | date: "%B %d, %Y" }}
+                </time>
+            </div>
+            {% if post.description %}
+            <p class="til-description">{{ post.description }}</p>
+            {% endif %}
+        </article>
+        {% endfor %}
+    </section>
+    {% endfor %}
+
+    {% if uncategorized_posts.size > 0 %}
+    <section class="category-section">
+        <h2 class="category-heading">Uncategorized</h2>
+        
+        {% assign sorted_posts = uncategorized_posts | sort: "title" %}
+        {% for post in sorted_posts %}
+        <article class="til-entry">
+            <h3 class="til-title">
+                <a href="{{ post.url | relative_url }}">{{ post.title }}</a>
+            </h3>
+            <div class="til-meta">
+                <span class="til-tags">
+                    {% for tag in post.tags %}
+                    <span class="tag">{{ tag }}</span>
+                    {% endfor %}
+                </span>
+                <time datetime="{{ post.date | date_to_xmlschema }}">
+                    {{ post.date | date: "%B %d, %Y" }}
+                </time>
+            </div>
+            {% if post.description %}
+            <p class="til-description">{{ post.description }}</p>
+            {% endif %}
+        </article>
+        {% endfor %}
+    </section>
+    {% endif %}
+</div>

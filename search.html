@@ -1,0 +1,99 @@
+---
+layout: default
+title: Search
+---
+
+<div class="search-container">
+    <h1>Search TILs</h1>
+    <input type="text" id="search-input" placeholder="Search for TILs...">
+    <div id="search-results"></div>
+</div>
+
+<script>
+    // Initialize lunr with search index
+    var searchIndex = null;
+    var searchStore = {
+        {% for post in site.til %}
+        "{{ post.url | slugify }}": {
+            "title": "{{ post.title | xml_escape }}",
+            "content": {{ post.content | strip_html | strip_newlines | jsonify }},
+            "url": "{{ post.url | xml_escape | relative_url }}",
+            "date": "{{ post.date | date: '%B %-d, %Y' }}",
+            "tags": "{{ post.tags | join: ', ' }}"
+        }{% unless forloop.last %},{% endunless %}
+        {% endfor %}
+    };
+
+    // Create the lunr index when the page loads
+    document.addEventListener('DOMContentLoaded', function() {
+        searchIndex = lunr(function() {
+            this.ref('id');
+            this.field('title', { boost: 10 });
+            this.field('content');
+            this.field('tags');
+
+            // Add documents to index
+            for (var key in searchStore) {
+                this.add({
+                    'id': key,
+                    'title': searchStore[key].title,
+                    'content': searchStore[key].content,
+                    'tags': searchStore[key].tags
+                });
+            }
+        });
+
+        // Check for URL parameters
+        var searchTerm = new URLSearchParams(window.location.search).get('q');
+        if (searchTerm) {
+            var searchInput = document.getElementById('search-input');
+            searchInput.value = searchTerm;
+            performSearch(searchTerm);
+        }
+    });
+
+    // Handle search input
+    document.getElementById('search-input').addEventListener('input', function(e) {
+        performSearch(this.value);
+    });
+
+    function performSearch(searchTerm) {
+        var searchResults = document.getElementById('search-results');
+        
+        if (!searchTerm) {
+            searchResults.innerHTML = '';
+            return;
+        }
+
+        try {
+            var results = searchIndex.search(searchTerm);
+            
+            if (results.length > 0) {
+                var resultList = '';
+                results.forEach(function(result) {
+                    var item = searchStore[result.ref];
+                    resultList += '<div class="post-preview">';
+                    resultList += '<h2><a href="' + item.url + '">' + item.title + '</a></h2>';
+                    resultList += '<div class="post-meta">';
+                    resultList += '<time>' + item.date + '</time>';
+                    if (item.tags) {
+                        resultList += '<div class="tags">';
+                        item.tags.split(', ').forEach(function(tag) {
+                            resultList += '<a href="{{ site.baseurl }}/tags#' + 
+                                        tag.trim().toLowerCase() + '" class="tag">' + 
+                                        tag.trim() + '</a>';
+                        });
+                        resultList += '</div>';
+                    }
+                    resultList += '</div></div>';
+                });
+                searchResults.innerHTML = resultList;
+            } else {
+                searchResults.innerHTML = '<p>No results found for "' + searchTerm + '"</p>';
+            }
+        } catch (e) {
+            console.error('Search error:', e);
+            searchResults.innerHTML = '<p>An error occurred while searching. Please try a different search term.</p>';
+        }
+    }
+</script>

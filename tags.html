@@ -1,0 +1,36 @@
+---
+layout: default
+title: Tags
+---
+
+<div class="tags-page">
+    <h1>Tags</h1>
+    
+    {% assign tags = site.til | map: 'tags' | uniq | sort %}
+    
+    <div class="tags-list">
+        {% for tag in tags %}
+            {% if tag != "" %}
+            <a href="#{{ tag | slugify }}" class="tag">{{ tag }}</a>
+            {% endif %}
+        {% endfor %}
+    </div>
+
+    {% for tag in tags %}
+        {% if tag != "" %}
+        <section id="{{ tag | slugify }}">
+            <h2>{{ tag }}</h2>
+            <ul>
+            {% for post in site.til %}
+                {% if post.tags contains tag %}
+                <li>
+                    <a href="{{ post.url | relative_url }}">{{ post.title }}</a>
+                    <span class="post-date">({{ post.date | date: "%B %-d, %Y" }})</span>
+                </li>
+                {% endif %}
+            {% endfor %}
+            </ul>
+        </section>
+        {% endif %}
+    {% endfor %}
+</div>
