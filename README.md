@@ -1,8 +1,8 @@
 # Today I Learned Template
 
-A GitHub Pages template for creating your own Today I Learned (TIL) website. Document and share your daily learnings in an organized and searchable way. This project is inspired by <https://til.simonwillison.net/> and some others that I found.
-
 ![CI](https://github.com/irfansofyana/til-template/actions/workflows/ci.yml/badge.svg)
+
+A GitHub Pages template for creating your own Today I Learned (TIL) website. Document and share your daily learnings in an organized and searchable way. This project is inspired by <https://til.simonwillison.net/> and some others that I found.
 
 ## Features
 
