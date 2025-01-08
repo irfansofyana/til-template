@@ -1,23 +1,35 @@
 :root[data-theme="light"] {
-    --primary-color: #2563eb;
-    --text-color: #333333;
+    --primary-color: #000000;
+    --text-color: #000000;
     --bg-color: #ffffff;
-    --secondary-bg: #f3f4f6;
+    --secondary-bg: #f5f5f5;
     --border-color: #e0e0e0;
-    --header-bg: #f8f9fa;
-    --tag-bg: #e9ecef;
-    --link-color: #0066cc;
+    --header-bg: #ffffff;
+    --tag-bg: #e6f3ff;
+    --tag-text: #0050b3;
+    --tag-border: #69b1ff;
+    --tag-hover-bg: #cce6ff;
+    --link-color: #000000;
+    --link-hover-color: #404040;
+    --code-bg: #f5f5f5;
+    --blockquote-border: #d0d0d0;
 }
 
 :root[data-theme="dark"] {
-    --primary-color: #66b3ff;
-    --text-color: #e0e0e0;
-    --bg-color: #1a1a1a;
-    --secondary-bg: #2d2d2d;
-    --border-color: #404040;
-    --header-bg: #2d2d2d;
-    --tag-bg: #404040;
-    --link-color: #66b3ff;
+    --primary-color: #ffffff;
+    --text-color: #ffffff;
+    --bg-color: #000000;
+    --secondary-bg: #1a1a1a;
+    --border-color: #333333;
+    --header-bg: #000000;
+    --tag-bg: #1e2b3d;
+    --tag-text: #40a9ff;
+    --tag-border: #2b6cb0;
+    --tag-hover-bg: #264f78;
+    --link-color: #ffffff;
+    --link-hover-color: #d0d0d0;
+    --code-bg: #1a1a1a;
+    --blockquote-border: #404040;
 }
 
 /* Base styles */
@@ -99,9 +111,9 @@ nav .container {
 }
 
 .nav-link:hover {
-    background-color: var(--border-color);
-    text-decoration: none;
+    background-color: var(--secondary-bg);
     transform: translateY(-1px);
+    color: var(--link-hover-color);
 }
 
 .nav-link.active {
@@ -278,18 +290,20 @@ nav .container {
 
 .tag {
     display: inline-block;
-    padding: 0.2rem 0.5rem;
+    padding: 0.25rem 0.75rem;
     margin: 0.2rem;
     background-color: var(--tag-bg);
-    border-radius: 3px;
-    font-size: 0.9rem;
-    color: var(--text-color);
+    color: var(--tag-text);
+    border: 1px solid var(--tag-border);
+    border-radius: 15px;
+    font-size: 0.85rem;
     text-decoration: none;
+    transition: all 0.2s ease;
 }
 
 .tag:hover {
-    opacity: 0.8;
-    text-decoration: none;
+    background-color: var(--tag-hover-bg);
+    transform: translateY(-1px);
 }
 
 /* Search */
