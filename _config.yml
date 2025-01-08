@@ -14,7 +14,34 @@ plugins:
   - jekyll-feed
   - jekyll-seo-tag
 
+# Collection settings
 collections:
   til:
     output: true
     permalink: /til/:categories/:title/
+
+# Default layouts
+defaults:
+  - scope:
+      path: ""
+      type: "til"
+    values:
+      layout: "post"
+  - scope:
+      path: "index.html"
+    values:
+      layout: "default"
+  - scope:
+      path: ""
+    values:
+      layout: "default"
+
+# Exclude from processing
+exclude:
+  - Gemfile
+  - Gemfile.lock
+  - node_modules
+  - vendor
+  - .git/
+  - .github/
+  - .gitignore

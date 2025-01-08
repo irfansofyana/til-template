@@ -3,55 +3,44 @@ layout: default
 title: Tags
 ---
 
-<div class="tags-page">
-    <h1>Tags</h1>
-    
-    {% assign tags = site.til | map: 'tags' | uniq | sort %}
-    
-    <div class="tags-list">
+<div class="content-list">
+    <div class="all-items-list">
+        {% assign tags = site.til | map: 'tags' | uniq | sort %}
         {% for tag in tags %}
             {% if tag != "" %}
-            <a href="#{{ tag | slugify }}" class="tag" onclick="scrollToTag('{{ tag | slugify }}')">#{{ tag }}</a>
+                {% assign tag_posts = site.til | where_exp: "post", "post.tags contains tag" %}
+                <a href="#{{ tag | slugify }}" class="item-link" data-count="{{ tag_posts.size }}">#{{ tag }}</a>
             {% endif %}
         {% endfor %}
     </div>
 
-    {% for tag in tags %}
-        {% if tag != "" %}
-        <section id="{{ tag | slugify }}">
-            <h2>{{ tag }}</h2>
-            <ul>
-            {% assign tag_posts = site.til | where_exp: "post", "post.tags contains tag" | sort: "date" | reverse %}
-            {% for post in tag_posts %}
-                <li>
-                    <a href="{{ post.url | relative_url }}">{{ post.title }}</a>
-                    <span class="post-date">({{ post.date | date: "%B %-d, %Y" }})</span>
-                </li>
-            {% endfor %}
-            </ul>
-        </section>
-        {% endif %}
-    {% endfor %}
+    <div class="items-content">
+        {% for tag in tags %}
+            {% if tag != "" %}
+            <div class="list-group" id="{{ tag | slugify }}">
+                <h2 class="list-header">#{{ tag }}</h2>
+                <ul>
+                {% assign tag_posts = site.til | where_exp: "post", "post.tags contains tag" | sort: "date" | reverse %}
+                {% for post in tag_posts %}
+                    <li>
+                        <a href="{{ post.url | relative_url }}">{{ post.title }}</a>
+                        <span class="post-date">({{ post.date | date: "%B %-d, %Y" }})</span>
+                    </li>
+                {% endfor %}
+                </ul>
+            </div>
+            {% endif %}
+        {% endfor %}
+    </div>
 </div>
 
 <script>
-    function scrollToTag(tagId) {
-        event.preventDefault();
-        const element = document.getElementById(tagId);
-        if (element) {
-            element.scrollIntoView({ behavior: 'smooth' });
-            // Update URL without page jump
-            history.pushState(null, null, '#' + tagId);
-        }
-    }
-
-    // Handle direct navigation to tag from URL
     document.addEventListener('DOMContentLoaded', function() {
         if (window.location.hash) {
             const tagId = window.location.hash.substring(1);
             const element = document.getElementById(tagId);
             if (element) {
-                element.scrollIntoView({ behavior: 'smooth' });
+                element.scrollIntoView();
             }
         }
     });

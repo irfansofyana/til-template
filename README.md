@@ -1,6 +1,6 @@
 # Today I Learned Template
 
-A GitHub Pages template for creating your own Today I Learned (TIL) website. Document and share your daily learnings in an organized and searchable way.
+A GitHub Pages template for creating your own Today I Learned (TIL) website. Document and share your daily learnings in an organized and searchable way. This project is inspired by https://til.simonwillison.net/ and some others that I found.
 
 ## Features
 
@@ -10,6 +10,9 @@ A GitHub Pages template for creating your own Today I Learned (TIL) website. Doc
 - 📱 Responsive design
 - 🚀 Fast and lightweight
 - 🐳 Docker support for easy development
+- 🔄 Automated GitHub Pages deployment with CI/CD
+- ⚡ Optimized build performance with caching
+- 🛡️ Secure deployment with GitHub Actions
 
 ## Getting Started
 
@@ -36,144 +39,158 @@ A GitHub Pages template for creating your own Today I Learned (TIL) website. Doc
    - Set source to `main` branch
    - Save changes
 
+## Customizing Your TIL Site
+
+### Site Configuration
+
+1. Update `_config.yml` with your preferences:
+   ```yaml
+   title: "Your TIL Site Name"
+   description: "Your site description"
+   baseurl: "/your-repo-name"  # If hosting on GitHub Pages
+   url: "https://yourusername.github.io"  # Your GitHub Pages URL
+   ```
+
+2. Customize the appearance:
+   - Modify `assets/css/syntax.css` for code highlighting
+   - Edit `_layouts/post.html` for post layout
+   - Update `index.html` for the main page layout
+
+3. Optional configurations:
+   - Add Google Analytics by updating the tracking ID in `_config.yml`
+   - Customize the search functionality in `search.html`
+   - Modify tag display in `tags.html`
+
+## Creating New Posts
+
+### Option 1: Manual Creation
+
+1. Create a new file in the `_til` directory with the format: `YYYY-MM-DD-title-slug.md`
+2. Add the front matter:
+   ```markdown
+   ---
+   layout: post
+   title: "Your TIL Title"
+   date: YYYY-MM-DD
+   category: Category
+   tags: [tag1, tag2]
+   ---
+   ```
+3. Write your content in Markdown below the front matter
+
+### Option 2: Using the Command Line
+
+1. From your project root, run:
+   ```bash
+   # Replace the title with your post title (use quotes for multiple words)
+   DATE=$(date +%Y-%m-%d) TITLE="your-title" && touch "_til/$DATE-$TITLE.md"
+   ```
+
+2. Use this template for your new post:
+   ```markdown
+   ---
+   layout: post
+   title: "Your Title Here"
+   date: YYYY-MM-DD
+   category: Category
+   tags: [tag1, tag2]
+   ---
+
+   ## What I Learned
+
+   Brief description of what you learned.
+
+   ## Why It's Useful
+
+   Explain why this knowledge is valuable.
+
+   ## Example
+
+   ```code
+   # Your code example here
+   ```
+
+   ## References
+
+   - [Link Description](URL)
+   ```
+
+### Categories vs Tags
+
+When creating a new TIL post, you'll need to specify both a category and tags. Here's how to use them:
+
+### Categories
+- Use **one** category per post
+- Categories represent the main technology or domain of your learning
+- Should be a single word or simple term
+- Examples: `Jekyll`, `Docker`, `Git`, `Python`, `AWS`
+
+### Tags
+- Can use **multiple** tags per post
+- Tags are more specific descriptors or sub-topics
+- Help in detailed classification and searching
+- Examples: `deployment`, `caching`, `optimization`, `security`
+
+Example frontmatter:
+```yaml
+---
+layout: post
+title: "Docker Layer Caching Tips"
+date: 2025-01-08
+category: Docker
+tags: [containers, optimization, caching, deployment]
+---
+```
+
+### Best Practices
+
+1. Keep titles clear and concise
+2. Use relevant tags for better organization
+3. Include code examples when applicable
+4. Add references to source materials
+5. Use headers to organize content
+6. Include practical examples or use cases
+
 ## Local Development
 
-You can run this site either directly on your machine or using Docker.
+### Prerequisites
 
-### Option 1: Using Docker (Recommended)
+- [Docker](https://docs.docker.com/get-docker/)
+- [Docker Compose](https://docs.docker.com/compose/install/)
 
-Prerequisites: [Docker](https://docs.docker.com/get-docker/) and [Docker Compose](https://docs.docker.com/compose/install/)
+### Running the Site
 
-1. Build and start the container:
-```bash
-docker-compose up
-```
+1. Clone your repository:
+   ```bash
+   git clone <your-repository-url>
+   cd <repository-name>
+   ```
 
-2. Visit `http://localhost:4000` in your browser
+2. Start the development server:
+   ```bash
+   docker-compose up
+   ```
 
-The site will automatically rebuild when you make changes to the source files.
+3. Visit `http://localhost:4000` in your browser
 
-To stop the container:
-```bash
-docker-compose down
-```
+The site will automatically rebuild when you make changes to any source files.
 
-### Option 2: Direct Installation
+### Docker Commands
 
-#### Prerequisites
+- Stop the server:
+  ```bash
+  docker-compose down
+  ```
 
-#### macOS
-```bash
-# Install Homebrew if not installed
-/bin/bash -c "$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/HEAD/install.sh)"
+- Rebuild the container (after Gemfile changes):
+  ```bash
+  docker-compose up --build
+  ```
 
-# Install Ruby via rbenv
-brew install rbenv
-rbenv init
-rbenv install 3.2.2
-rbenv global 3.2.2
-
-# Install Bundler
-gem install bundler
-```
-
-#### Windows
-1. Download and install Ruby+Devkit from [RubyInstaller](https://rubyinstaller.org/downloads/)
-2. During installation, check the option to run `ridk install`
-3. Open Command Prompt and run:
-```bash
-gem install bundler
-```
-
-#### Linux (Ubuntu/Debian)
-```bash
-sudo apt-get update
-sudo apt-get install ruby-full build-essential zlib1g-dev
-gem install bundler
-```
-
-### Setting Up the Project
-
-1. Clone the repository
-```bash
-git clone <your-repository-url>
-cd <repository-name>
-```
-
-2. Install dependencies
-```bash
-bundle install
-```
-
-### Running Locally
-
-1. Start the Jekyll server
-```bash
-bundle exec jekyll serve
-```
-
-2. Visit `http://localhost:4000` in your browser
-
-### Development Options
-
-- Enable live reloading:
-```bash
-bundle exec jekyll serve --livereload
-```
-- Show draft posts:
-```bash
-bundle exec jekyll serve --drafts
-```
-- Use a different port:
-```bash
-bundle exec jekyll serve --port 4001
-```
-
-### Common Issues
-
-1. **Bundler Error**
-```bash
-bundle update
-bundle install
-```
-
-2. **Permission Errors**
-```bash
-gem install bundler --user-install
-bundle install --path vendor/bundle
-```
-
-3. **Port Already in Use**
-```bash
-# Either kill the process using port 4000
-lsof -i :4000
-kill -9 <PID>
-
-# Or use a different port
-bundle exec jekyll serve --port 4001
-```
-
-### Docker-specific Issues
-
-1. **Permission Issues**
-If you encounter permission issues with Docker:
-```bash
-sudo chown -R $USER:$USER .
-```
-
-2. **Port Conflicts**
-If port 4000 is already in use, modify the port mapping in `docker-compose.yml`:
-```yaml
-ports:
-  - "4001:4000"  # Change 4001 to any available port
-```
-
-3. **Performance on macOS**
-For better performance on macOS, you can add these volume options to `docker-compose.yml`:
-```yaml
-volumes:
-  - .:/app:cached
-```
+- View logs:
+  ```bash
+  docker-compose logs
+  ```
 
 ## License
 

@@ -8,6 +8,11 @@ layout: default
             <time datetime="{{ page.date | date_to_xmlschema }}">
                 {{ page.date | date: "%B %-d, %Y" }}
             </time>
+            {% if page.category %}
+            <div class="category">
+                <a href="{{ site.baseurl }}/categories#{{ page.category | slugify }}" class="category-link">{{ page.category }}</a>
+            </div>
+            {% endif %}
             {% if page.tags.size > 0 %}
             <div class="tags">
                 {% for tag in page.tags %}
