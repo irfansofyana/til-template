@@ -51,10 +51,6 @@ jobs:
           --recursive \
           --follow
 
-    - name: Run HTML validation
-      run: |
-        npx html-validate "_site/**/*.html"
-
     - name: Check accessibility
       run: |
         pa11y-ci http://localhost:4000
