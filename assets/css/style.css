@@ -1043,20 +1043,20 @@ a:hover {
     text-decoration: none;
 }
 
-/* Topics Section */
-.topics-section {
+/* Tags Section */
+.tags-section {
     background: #f8f9fa;
     padding: 1.5rem;
     border-radius: 8px;
 }
 
-.topics-cloud {
+.tags-cloud {
     display: flex;
     flex-wrap: wrap;
     gap: 0.75rem;
 }
 
-.topic-tag {
+.tag-item {
     color: #2c3e50;
     text-decoration: none;
     display: inline-flex;
@@ -1064,7 +1064,7 @@ a:hover {
     gap: 0.5rem;
 }
 
-.topic-tag:hover {
+.tag-item:hover {
     color: #3498db;
     text-decoration: none;
 }
@@ -1136,11 +1136,11 @@ a:hover {
     letter-spacing: 0.5px;
 }
 
-.popular-topics {
+.popular-tags {
     margin: 2rem 0;
 }
 
-.popular-topics h2 {
+.popular-tags h2 {
     color: var(--section-heading-color);
     font-weight: 700;
     margin-bottom: 1.5rem;
@@ -1186,7 +1186,7 @@ a:hover {
 
 /* Section headings */
 .recent-learnings h1,
-.popular-topics h2 {
+.popular-tags h2 {
     color: var(--section-heading-color);
     font-weight: 700;
     margin-bottom: 1.5rem;
@@ -1196,7 +1196,7 @@ a:hover {
 }
 
 .recent-learnings h1::after,
-.popular-topics h2::after {
+.popular-tags h2::after {
     content: '';
     position: absolute;
     bottom: -0.5rem;
@@ -1207,7 +1207,7 @@ a:hover {
     opacity: 0.7;
 }
 
-.popular-topics h2 {
+.popular-tags h2 {
     font-size: 1.75rem;
 }
 

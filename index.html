@@ -21,7 +21,7 @@ title: Home
                 </div>
                 <div class="stat-item">
                     <span class="stat-number">{{ site.til | map: "tags" | compact | flatten | uniq | size }}</span>
-                    <span class="stat-label">Topics</span>
+                    <span class="stat-label">Tags</span>
                 </div>
             </div>
         </section>
@@ -66,7 +66,7 @@ title: Home
         <section class="popular-tags">
             <div class="container">
                 <div class="popular-topics">
-                    <h2>Popular Topics</h2>
+                    <h2>Popular Tags</h2>
                 </div>
                 <a href="{{ '/tags' | relative_url }}" class="view-all">View All →</a>
             </div>

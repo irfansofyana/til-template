@@ -18,7 +18,7 @@ A GitHub Pages template for creating your own Today I Learned (TIL) website. Doc
 
 1. Click "Use this template" to create your own repository
 2. Update `_config.yml` with your site information:
-   - Change `title` and `description`
+   - Change `title`, `html_title`, `site_name`, and `description`
    - Update `baseurl` to match your repository name
    - Update `url` if using a custom domain
 
@@ -45,10 +45,12 @@ A GitHub Pages template for creating your own Today I Learned (TIL) website. Doc
 
 1. Update `_config.yml` with your preferences:
    ```yaml
-   title: "Your TIL Site Name"
-   description: "Your site description"
-   baseurl: "/your-repo-name"  # If hosting on GitHub Pages
-   url: "https://yourusername.github.io"  # Your GitHub Pages URL
+   title: "Today I Learned"
+   html_title: "TIL - Your Daily Learning Notes"
+   site_name: "Today I Learned"
+   description: "A collection of things I learn day to day"
+   baseurl: ""  # If using GitHub Pages with custom domain
+   url: ""      # Your site URL
    ```
 
 2. Customize the appearance:
