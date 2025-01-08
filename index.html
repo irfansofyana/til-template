@@ -38,12 +38,10 @@ title: Home
             {% for post in all_posts limit:display_count %}
                 <article class="post-item">
                     <div class="post-meta">
-                        <time datetime="{{ post.date | date_to_xmlschema }}">{{ post.date | date: "%B %-d, %Y" }}</time>
-                        {% if post.category %}
-                        <div class="category">
-                            <a href="{{ site.baseurl }}/categories#{{ post.category | slugify }}" class="category-link">{{ post.category }}</a>
-                        </div>
-                        {% endif %}
+                        <span class="date-category">
+                            <time datetime="{{ post.date | date_to_xmlschema }}">{{ post.date | date: "%B %-d, %Y" }}</time>
+                            {% if post.category %}<a href="{{ site.baseurl }}/categories#{{ post.category | slugify }}" class="category-link">{{ post.category }}</a>{% endif %}
+                        </span>
                     </div>
                     <h2 class="post-title">
                         <a href="{{ post.url | relative_url }}">{{ post.title }}</a>
