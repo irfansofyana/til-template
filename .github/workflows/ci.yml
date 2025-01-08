@@ -40,7 +40,7 @@ jobs:
         
     - name: Start Jekyll Server
       run: |
-        bundle exec jekyll serve --detach
+        bundle exec jekyll serve --detach --baseurl ''
         sleep 5  # Give Jekyll time to start
         
     - name: Check for broken links
